@@ -1,0 +1,1 @@
+sudo logwatch --detail High --mailto vboxuser --service vsftpd sshd xrdp --range today
