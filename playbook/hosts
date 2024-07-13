@@ -1,0 +1,2 @@
+[milutin]
+vas ansible_host=192.168.1.35 ansible_ssh_user=vas ansible_sudo_pass=QWER123+ ansible_ssh_private_key_file=/home/vboxuser/.ssh/id_rsa

@@ -1,0 +1,12 @@
+- name: Install cmatrix, cowsay, sl
+  hosts: milutin
+  tasks:
+    - name: Install cmatrix
+      become: yes
+      apt: pkg=cmatrix state=present update_cache=true
+    - name: install cowsay
+      become: yes
+      apt: pkg=cowsay state=present update_cache=true
+    - name: install sl
+      become: yes
+      apt: pkg=sl state=present update_cache=true
