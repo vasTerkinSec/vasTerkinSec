@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wizard-db-deployment
+  labels:
+    app: wizard-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wizard-db
+  template:
+    metadata:
+      labels:
+        app: wizard-db 
+    spec:
+      containers:
+      - name: wizard-db
+        image: wizard-db
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3306 
+        env:
+        - name: WIZARD_DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: wizard-db-secret
+              key: root-username
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: wizard-db-secret
+              key: root-password
+        - name: WIZARD_DB_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: wizard-db-config
+              key: wizard-db-name
+              
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: wizard-db-service
+spec:
+  selector:
+    app: wizard-db
+  ports:
+  - protocol: TCP
+    port: 3306
+    targetPort: 3306
+
+
